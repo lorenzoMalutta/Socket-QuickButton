@@ -12,17 +12,18 @@ let final = undefined
 
 io.on('connection', (socket) => {
   socket.on('click', msg => {
-    teste = teste + 1
     if (teste !== final) {
-      console.log(teste)
+      teste = teste + 1
       io.emit('click', teste);
       return
     }
 
     io.emit('click', socket.handshake.address)
+    socket.disconnect()
   });
   socket.on('start', msg => {
     final = Math.floor(Math.random() * (350 - 50) + 50);
+    // final = 10;
     io.emit('start', final);
   });
 });
