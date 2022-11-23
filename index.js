@@ -10,6 +10,11 @@ app.get('/', (req, res) => {
 let teste = 0
 let final = undefined
 
+function resetAllValues() {
+  teste = 0
+  final = undefined
+}
+
 io.on('connection', (socket) => {
   socket.on('click', msg => {
     if (teste !== final) {
@@ -19,6 +24,7 @@ io.on('connection', (socket) => {
     }
 
     io.emit('click', socket.handshake.address)
+    resetAllValues()
     socket.disconnect()
   });
   socket.on('start', msg => {
