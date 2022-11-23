@@ -8,11 +8,22 @@ app.get('/', (req, res) => {
 });
 
 let teste = 0
+let final = undefined
 
 io.on('connection', (socket) => {
-  socket.on('chat message', msg => {
+  socket.on('click', msg => {
     teste = teste + 1
-    io.emit('chat message', teste);
+    if (teste !== final) {
+      console.log(teste)
+      io.emit('click', teste);
+      return
+    }
+
+    io.emit('click', socket.handshake.address)
+  });
+  socket.on('start', msg => {
+    final = Math.floor(Math.random() * (350 - 50) + 50);
+    io.emit('start', final);
   });
 });
 

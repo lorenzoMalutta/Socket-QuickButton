@@ -24,6 +24,7 @@
     <form id="formIniciar" action="">
       <button>Iniciar</button>
     </form>
+    <ul id="messages"></ul>
 
     <form id="form" action="">
       <button>Send</button>
@@ -40,10 +41,10 @@
 
       form.addEventListener('submit', function(e) {
         e.preventDefault();
-        socket.emit('chat message', 1);
+        socket.emit('click', 1);
       });
 
-      socket.on('chat message', function(msg) {
+      socket.on('click', function(msg) {
         var item = document.createElement('li');
         item.textContent = msg;
         messages.appendChild(item);
@@ -53,13 +54,13 @@
       /*Iniciar jogo*/
       formIniciar.addEventListener('submit', function(e) {
         e.preventDefault();
-        socket.emit('iniciar');
+        socket.emit('start');
         // if (input.value) {
         //   input.value = '';
         // }
       });
 
-      socket.on('iniciar', function(cont) {
+      socket.on('start', function(cont) {
         var valor = document.getElementById('valor');
         valor.textContent = cont;
       });
