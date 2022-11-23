@@ -16,9 +16,17 @@
     </style>
   </head>
   <body>
-    <ul id="messages"></ul>
+    <div>
+      <strong id="valor">
+        0
+      </strong>
+    </div>
+    <form id="formIniciar" action="">
+      <button>Iniciar</button>
+    </form>
+
     <form id="form" action="">
-      <input id="input" autocomplete="off" /><button>Send</button>
+      <button>Send</button>
     </form>
     <script src="/socket.io/socket.io.js"></script>
 
@@ -27,14 +35,12 @@
 
       var messages = document.getElementById('messages');
       var form = document.getElementById('form');
+      var formIniciar = document.getElementById('formIniciar');
       var input = document.getElementById('input');
 
       form.addEventListener('submit', function(e) {
         e.preventDefault();
         socket.emit('chat message', 1);
-        // if (input.value) {
-        //   input.value = '';
-        // }
       });
 
       socket.on('chat message', function(msg) {
@@ -42,6 +48,20 @@
         item.textContent = msg;
         messages.appendChild(item);
         window.scrollTo(0, document.body.scrollHeight);
+      });
+
+      /*Iniciar jogo*/
+      formIniciar.addEventListener('submit', function(e) {
+        e.preventDefault();
+        socket.emit('iniciar');
+        // if (input.value) {
+        //   input.value = '';
+        // }
+      });
+
+      socket.on('iniciar', function(cont) {
+        var valor = document.getElementById('valor');
+        valor.textContent = cont;
       });
     </script>
   </body>
