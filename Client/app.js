@@ -10,8 +10,15 @@ app.get('/', (req, res) => {
 });
 
 io.on('connection', (socket) => {
-  console.log('a user connected');
+  socket.on('some event', (someProperty) => {
+    io.emit('some event',
+      {
+        someProperty: Math.floor(Math.random() * 100),
+      });
+  });
 });
+
+
 
 server.listen(3000, () => {
   console.log('listening on *:3000');
