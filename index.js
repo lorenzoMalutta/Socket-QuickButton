@@ -6,6 +6,8 @@ const io = require('socket.io')(http);
 // Description: Importa o dotenv para pegar a porta do servidor
 const port = process.env.PORT || 3000;
 
+const fs = require('fs');
+
 // Rota para o front end
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html');
@@ -32,6 +34,7 @@ io.on('connection', (socket) => {
     }
     msg = 'O jogador de IP:'+socket.handshake.address+' venceu!',
   // Faz o Handshake do IP do usuário que clicou no botão e envia para o front end  
+    escreveVencecores(socket.handshake.address);
     io.emit('click',  msg)
     resetAllValues()
     socket.disconnect()
@@ -45,6 +48,21 @@ io.on('connection', (socket) => {
     io.emit('clearAll', 'clearAll')
   });
 });
+
+//    final = Math.floor(Math.random() * (350 - 50) + 50);
+//    final = Math.floor(Math.random() * (10 - 5) + 5);
+
+function escreveVencecores(ip) {
+  fs.writeFile('vencedores.txt', ip, { flag: 'a+' }, function (err) {
+    if(err) throw err;
+    fs.appendFile('vencedores.txt', '\n', err => {
+      if (err) {
+        console.error(err)
+        return
+      }
+    })
+  });
+}
 
 // Inicia o servidor
 http.listen(port, () => {
