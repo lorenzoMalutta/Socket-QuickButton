@@ -1,32 +1,69 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Socket.IO chat</title>
     <style>
-      body { margin: 0; padding-bottom: 3rem; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
-
+      body { margin: 0; padding-bottom: 3rem; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }  
       #form { background: rgba(0, 0, 0, 0.15); padding: 0.25rem; position: fixed; bottom: 0; left: 0; right: 0; display: flex; height: 3rem; box-sizing: border-box; backdrop-filter: blur(10px); }
+      .button-start {
+        box-shadow:inset 0px 1px 16px -39px #9acc85;
+        background:linear-gradient(to bottom, #74ad5a 5%, #68a54b 100%);
+        background-color:#74ad5a;
+        border-radius:7px;
+        display:inline-block;
+        cursor:pointer;
+        color:#ffffff;
+        font-family:Arial;
+        font-size:14px;
+        font-weight:bold;
+        padding:12px 6px;
+        text-decoration:none;
+      }
+      .button-start:hover {
+        background:linear-gradient(to bottom, #68a54b 5%, #74ad5a 100%);
+        background-color:#68a54b;
+      }
+      .button-start:active {
+        position:relative;
+        top:1px;
+      }
+      .tabelaDeValores {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+      }
+      .tabelaMenssagens {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
       #input { border: none; padding: 0 1rem; flex-grow: 1; border-radius: 2rem; margin: 0.25rem; }
       #input:focus { outline: none; }
-      #form > button { background: #333; border: none; padding: 0 1rem; margin: 0.25rem; border-radius: 3px; outline: none; color: #fff; }
-
+      #form > button { background: red; border: none; padding: 0 1rem; margin: 0.25rem; border-radius: 3px; outline: none; color: #fff; }
+      
       #messages { list-style-type: none; margin: 0; padding: 0; }
       #messages > li { padding: 0.5rem 1rem; }
       #messages > li:nth-child(odd) { background: #efefef; }
-    </style>
+      </style>
+    <title>Socket.IO chat</title>
   </head>
   <body>
-    <div>
-      <strong id="valor">
-        0
-      </strong>
+    <div class="tabelaDeValores">
+      <form id="formIniciar" action="">
+        <button class="button-start">Iniciar</button>
+      </form>
+      <div class="tabelaMenssagens">
+        <strong id="valor">
+          0
+        </strong>
+      </div>
+      <ul>🏆CLICK FOR THE WIN🏆</ul>
+      <ul id="messages"></ul>
     </div>
-    <form id="formIniciar" action="">
-      <button>Iniciar</button>
-    </form>
-    <ul id="messages"></ul>
 
-    <form id="form" action="">
+    <form style="display: flex; justify-content: center;" id="form" action="">
       <button>Send</button>
     </form>
     <script src="/socket.io/socket.io.js"></script>

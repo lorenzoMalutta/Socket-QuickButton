@@ -27,10 +27,11 @@ io.on('connection', (socket) => {
     if (teste !== final) {
       teste = teste + 1
       io.emit('click', teste);
-      return
+      return 
     }
+    msg = 'O jogador de IP:'+socket.handshake.address+' venceu!',
   // Faz o Handshake do IP do usuário que clicou no botão e envia para o front end  
-    io.emit('click', socket.handshake.address)
+    io.emit('click',  msg)
     resetAllValues()
     socket.disconnect()
   });
