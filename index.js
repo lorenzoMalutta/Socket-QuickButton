@@ -22,6 +22,7 @@ function resetAllValues() {
 
 // 
 io.on('connection', (socket) => {
+  console.log('Novo usuário conectado ' + socket.handshake.address);
   // Recebe o click do usuário e envia para o front end agregando o valor do clique em +1 checando se o valor é diferente que o valor final
   socket.on('click', msg => {
     if (teste !== final) {
@@ -37,9 +38,11 @@ io.on('connection', (socket) => {
   });
   // Inicia o jogo e envia o valor final para o front end
   socket.on('start', msg => {
+    teste = 0;
     final = Math.floor(Math.random() * (350 - 50) + 50);
     // final = 10;
     io.emit('start', final);
+    io.emit('clearAll', 'clearAll')
   });
 });
 

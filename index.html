@@ -91,16 +91,18 @@
       /*Iniciar jogo*/
       formIniciar.addEventListener('submit', function(e) {
         e.preventDefault();
+        messages.innerHTML = '';
         socket.emit('start');
-        // if (input.value) {
-        //   input.value = '';
-        // }
       });
 
       socket.on('start', function(cont) {
         var valor = document.getElementById('valor');
         valor.textContent = cont;
       });
+
+      socket.on('clearAll', function() {
+        messages.innerHTML = '';
+      })
     </script>
   </body>
 </html>
